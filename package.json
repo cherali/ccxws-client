@@ -1,5 +1,5 @@
 {
-  "name": "ccxws",
+  "name": "ccxws-client",
   "version": "0.47.0",
   "description": "Websocket client for 37 cryptocurrency exchanges",
   "keywords": [

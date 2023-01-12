@@ -77,13 +77,13 @@ export class KucoinClient extends BasicClient {
         );
     }
 
-    protected _beforeClose() {
+    protected _beforeClose = () => {
         this._sendMessage.cancel();
         this._requestLevel2Snapshot.cancel();
         this._requestLevel3Snapshot.cancel();
     }
 
-    protected _beforeConnect() {
+    protected _beforeConnect = () => {
         this._wss.on("connected", this._startPing.bind(this));
         this._wss.on("disconnected", this._stopPing.bind(this));
         this._wss.on("closed", this._stopPing.bind(this));
@@ -115,7 +115,7 @@ export class KucoinClient extends BasicClient {
      * are idempotent and only a single socket connection is created. Then the _connectAsync
      * call is performed that does the REST token fetching and the connection.
      */
-    protected _connect() {
+    protected _connect = () => {
         if (!this._wss) {
             this._wss = { status: "connecting" } as any;
             if (this.wssPath) super._connect();

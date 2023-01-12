@@ -30,7 +30,7 @@ export class DeribitClient extends BasicClient {
         this._send = throttle(this.__send.bind(this), 50);
     }
 
-    protected _beforeClose() {
+    protected _beforeClose = () => {
         this._send.cancel();
     }
 

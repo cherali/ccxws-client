@@ -38,7 +38,7 @@ export class HitBtcClient extends BasicClient {
         this._send = throttle(this.__send.bind(this), throttleMs);
     }
 
-    protected _beforeClose() {
+    protected _beforeClose = () => {
         this._send.cancel();
     }
 

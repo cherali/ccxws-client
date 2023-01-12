@@ -46,7 +46,7 @@ export class LiquidClient extends BasicClient {
         }
     }
 
-    protected _beforeConnect() {
+    protected _beforeConnect = () => {
         this._wss.on("connected", this._startPing.bind(this));
         this._wss.on("disconnected", this._stopPing.bind(this));
         this._wss.on("closed", this._stopPing.bind(this));

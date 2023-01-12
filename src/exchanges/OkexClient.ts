@@ -66,11 +66,11 @@ export class OkexClient extends BasicClient {
         this._sendMessage = throttle(this.__sendMessage.bind(this), sendThrottleMs);
     }
 
-    protected _beforeClose() {
+    protected _beforeClose = () => {
         this._sendMessage.cancel();
     }
 
-    protected _beforeConnect() {
+    protected _beforeConnect = () => {
         this._wss.on("connected", this._startPing.bind(this));
         this._wss.on("disconnected", this._stopPing.bind(this));
         this._wss.on("closed", this._stopPing.bind(this));

@@ -152,7 +152,7 @@ export class SingleCexClient extends BasicClient {
      * request, and the normal subscriptions happen after authentication has
      * completed in the _onAuthorized method.
      */
-    protected _onConnected() {
+    protected _onConnected = () => {
         this._sendAuthorizeRequest();
     }
 

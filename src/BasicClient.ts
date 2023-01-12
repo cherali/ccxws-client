@@ -227,7 +227,7 @@ export abstract class BasicClient extends EventEmitter implements IClient {
      * is only called in the subscribe method. Multiple calls
      * have no effect.
      */
-    protected _connect() {
+    protected _connect = () => {
         if (!this._wss) {
             this._wss = this._wssFactory(this.wssPath);
             this._wss.on("error", this._onError.bind(this));
@@ -254,7 +254,7 @@ export abstract class BasicClient extends EventEmitter implements IClient {
      * Handles the error event
      * @param {Error} err
      */
-    protected _onError(err) {
+    protected _onError = (err) => {
         this.emit("error", err);
     }
 
@@ -262,7 +262,7 @@ export abstract class BasicClient extends EventEmitter implements IClient {
      * Handles the connecting event. This is fired any time the
      * underlying websocket begins a connection.
      */
-    protected _onConnecting() {
+    protected _onConnecting = () => {
         this.emit("connecting");
     }
 
@@ -272,7 +272,7 @@ export abstract class BasicClient extends EventEmitter implements IClient {
      * the socket to immediate trigger resubscription to relevent
      * feeds
      */
-    protected _onConnected() {
+    protected _onConnected = () => {
         this.emit("connected");
         for (const [marketSymbol, market] of this._tickerSubs) {
             this._sendSubTicker(marketSymbol, market);
@@ -299,7 +299,7 @@ export abstract class BasicClient extends EventEmitter implements IClient {
      * Handles a disconnection event
      */
     protected _onDisconnected() {
-        this._watcher.stop();
+        this._watcher?.stop();
         this.emit("disconnected");
     }
 
@@ -307,28 +307,28 @@ export abstract class BasicClient extends EventEmitter implements IClient {
      * Handles the closing event
      */
     protected _onClosing() {
-        this._watcher.stop();
+        this._watcher?.stop();
         this.emit("closing");
     }
 
     /**
      * Fires before connect
      */
-    protected _beforeConnect() {
+    protected _beforeConnect = () => {
         //
     }
 
     /**
      * Fires before close
      */
-    protected _beforeClose() {
+    protected _beforeClose = () => {
         //
     }
 
     /**
      * Handles the closed event
      */
-    protected _onClosed() {
+    protected _onClosed = () => {
         this.emit("closed");
     }
 

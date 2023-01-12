@@ -77,11 +77,11 @@ export class BittrexClient extends BasicClient {
     ////////////////////////////////////
     // PROTECTED
 
-    protected _beforeConnect() {
+    protected _beforeConnect = () => {
         this._wss.on("connected", () => this._sendHeartbeat());
     }
 
-    protected _beforeClose() {
+    protected _beforeClose = () => {
         this._subbedTickers = false;
         this._requestLevel2Snapshot.cancel();
     }
@@ -185,7 +185,7 @@ export class BittrexClient extends BasicClient {
      * Requires connecting to SignalR which has a whole BS negotiation
      * to obtain a token, similar to Kucoin actually.
      */
-    protected _connect() {
+    protected _connect = () => {
         if (!this._wss) {
             this._wss = { status: "connecting" } as any;
             this._connectAsync();

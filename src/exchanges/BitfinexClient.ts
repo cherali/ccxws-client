@@ -97,7 +97,7 @@ export class BitfinexClient extends BasicClient {
         this.tradeMessageType = tradeMessageType;
     }
 
-    protected _onConnected() {
+    protected _onConnected = () => {
         // immediately send the config event to include sequence IDs in every message
         this._sendConfiguration();
         super._onConnected();

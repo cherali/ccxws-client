@@ -62,7 +62,7 @@ export class ErisXClient extends BasicClient {
         );
     }
 
-    protected _onConnected() {
+    protected _onConnected = () => {
         this._sendAuthentication();
     }
 

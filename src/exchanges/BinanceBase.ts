@@ -116,9 +116,23 @@ export class BinanceBase extends BasicClient {
         );
     }
 
+    ////
+
+    public setMarketMap(marketMap: string[] | undefined) {
+        marketMap?.forEach(market => {
+            const marketId = market.toUpperCase();
+            const data = {
+                id: marketId.replace("/", ""),
+                base: marketId.split("/")[0],
+                quote: marketId.split("/")[1],
+            };
+            this._tickerSubs.set(marketId.replace("/", ""), data);
+        });
+    }
+
     //////////////////////////////////////////////
 
-    protected _onClosing() {
+    protected _onClosing = () => {
         this._tickersActive = false;
         this._batchSub.cancel();
         this._batchUnsub.cancel();
@@ -269,8 +283,15 @@ export class BinanceBase extends BasicClient {
 
     /////////////////////////////////////////////
 
-    protected _onMessage(raw: string) {
-        const msg = JSON.parse(raw);
+    protected _onMessage(raw: any) {
+        const data = JSON.parse(raw.data);
+        const msg = {
+            id: raw.id,
+            result: data,
+            error: null,
+            stream: data.stream,
+            data: data.data
+        };
 
         // subscribe/unsubscribe responses
         if (msg.result === null && msg.id) {

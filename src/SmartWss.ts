@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 import { EventEmitter } from "events";
-import WebSocket from "ws";
+import WebSocket from "isomorphic-ws";
 import { wait } from "./Util";
 
 export class SmartWss extends EventEmitter {
